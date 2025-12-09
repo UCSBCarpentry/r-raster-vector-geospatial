@@ -1,0 +1,945 @@
+---
+title: Open and Plot Vector Layers
+teaching: 40
+exercises: 20
+source: Rmd
+---
+
+```{r setup, echo=FALSE}
+source("setup.R")
+```
+
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- Know the difference between point, line, and polygon vector elements.
+- Load point, line, and polygon vector layers into R.
+- Access the attributes of a spatial object in R.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- How can I distinguish between and visualize point, line and polygon vector data?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+```{r load-libraries, echo=FALSE, results="hide", warning=FALSE, message=FALSE}
+library(terra)
+library(ggplot2)
+library(dplyr)
+library(sf)
+```
+
+::::::::::::::::::::::::::::::::::::::::::  prereq
+
+## Things You'll Need To Complete This Episode
+
+See the [lesson homepage](.) for detailed information about the software, data,
+and other prerequisites you will need to work through the examples in this
+episode.
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Introduce the Data
+
+If not already discussed, introduce the datasets that will be used in this
+lesson. A brief introduction to the datasets can be found on the
+[Geospatial workshop homepage](https://datacarpentry.org/geospatial-workshop/#data).
+
+For more detailed information about the datasets, check
+out the [Geospatial workshop data
+page](https://datacarpentry.org/geospatial-workshop/data/).
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+In this episode, we will open and plot point, line
+and polygon vector data loaded from ESRI's `shapefile` format into R. These data refer to the
+[NEON Harvard Forest field site](https://www.neonscience.org/field-sites/field-sites-map/HARV),
+which we have been working with in previous episodes. In later episodes, we will learn how to work with raster and vector data together and combine them
+into a single plot.
+
+## Import Vector Data
+
+We will use the `sf` package to work with vector data in R. `sf` stands for
+[simple features](https://en.wikipedia.org/wiki/Simple_Features), an international standard for
+representing spatial data that is used widely by databases (e.g., PostGIS) and other open source
+geospatial software (e.g., GDAL). We will also use the `terra` package, which has been loaded
+in previous episodes, so we can explore raster and vector spatial metadata using similar commands.
+
+Make sure you have the `sf` library loaded.
+
+```{r load-sf, results="hide", eval=FALSE, message=FALSE}
+library(sf)
+```
+
+The vector layers that we will import from ESRI's `shapefile` format are:
+
+- A polygon vector layer representing our field site boundary,
+- A line vector layer representing roads, and
+- A point vector layer representing the location of the [Fisher flux tower](https://www.neonscience.org/data-collection/flux-tower-measurements)
+  located at the [NEON Harvard Forest field site](https://www.neonscience.org/field-sites/field-sites-map/HARV).
+
+The first vector layer that we will open contains the boundary of our study area
+(or our Area Of Interest or AOI, hence the name `aoiBoundary`). To import
+a vector layer from an ESRI `shapefile` we use the `sf` function `st_read()`. `st_read()`
+requires the file path to the ESRI `shapefile`.
+
+Let's import our AOI:
+
+```{r Import-Shapefile}
+aoi_boundary_harv <- st_read(
+  "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
+```
+
+## Vector Layer Metadata \& Attributes
+
+When we import the `HarClip_UTMZ18` vector layer from an ESRI `shapefile` into R (as our
+`aoi_boundary_harv` object), the `st_read()` function automatically stores
+information about the data. We are particularly interested in the geospatial
+metadata, describing the format, CRS, extent, and other components of the
+vector data, and the attributes which describe properties associated with each
+individual vector object.
+
+
+
+## Spatial Metadata
+
+Key metadata for all vector layers includes:
+
+1. **Object Type:** the class of the imported object.
+2. **Coordinate Reference System (CRS):** the projection of the data.
+3. **Extent:** the spatial extent (i.e. geographic area that the vector layer
+   covers) of the data. Note that the spatial extent for a vector layer
+   represents the combined extent for all individual objects in the vector layer.
+
+We can view metadata of a vector layer using the `st_geometry_type()`, `st_crs()` and
+`st_bbox()` functions. First, let's view the geometry type for our AOI
+vector layer:
+
+```{r}
+st_geometry_type(aoi_boundary_harv)
+```
+
+Our `aoi_boundary_harv` is a polygon spatial object. The 18 levels shown below our
+output list the possible categories of the geometry type. Now let's check what
+CRS this file data is in:
+
+```{r}
+st_crs(aoi_boundary_harv)
+```
+
+Our data in the CRS **UTM zone 18N**. The CRS is critical to interpreting the
+spatial object's extent values as it specifies units. To find the extent of our AOI, we
+can use the `st_bbox()` function:
+
+```{r}
+st_bbox(aoi_boundary_harv)
+```
+
+The spatial extent of a vector layer or R spatial object represents the geographic
+"edge" or location that is the furthest north, south east and west. Thus it
+represents the overall geographic coverage of the spatial object. Image Source:
+National Ecological Observatory Network (NEON).
+
+![](fig/dc-spatial-vector/spatial_extent.png){alt='Extent image'}
+
+Lastly, we can view all of the metadata and attributes for this R spatial
+object by printing it to the screen:
+
+```{r}
+aoi_boundary_harv
+```
+
+## Plot a vector layer
+
+Next, let's visualize the data in our `sf` object using the `ggplot` package.
+Unlike with raster data, we do not need to convert vector data to a dataframe
+before plotting with `ggplot`.
+
+We're going to customize our boundary plot by setting the size, color, and fill
+for our plot. When plotting `sf` objects with `ggplot2`, you need to use the
+`coord_sf()` coordinate system.
+
+```{r plot-shapefile}
+ggplot() +
+  geom_sf(data = aoi_boundary_harv, size = 3, color = "black", fill = "cyan1") +
+  ggtitle("AOI Boundary Plot") +
+  coord_sf()
+```
+
+
+On the boundary plot, the x and y axes are labeled in units of decimal degrees. However, the CRS
+for `aoi_boundary_harv` is UTM zone 18N, which has units of meters. `geom_sf` will use
+the CRS of the data to set the CRS for the plot, so why is there a mismatch?
+
+By default, `coord_sf()` generates a graticule with a CRS of WGS 84 (where the units
+are decimal degrees), and this sets our axis labels. To draw the graticule in the native
+CRS of our shapefile, we can set `datum=NULL` in the `coord_sf()` function.
+
+
+## Spatial Data Attributes
+
+We introduced the idea of spatial data attributes in
+[an earlier lesson](https://datacarpentry.org/organization-geospatial/02-intro-vector-data).
+Now we will explore how to use spatial data attributes stored in our data to
+plot different features.
+
+
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge: Import Line and Point Vector Layers
+
+Using the steps above, import the HARV\_roads and HARVtower\_UTM18N vector layers into
+R. Call the HARV\_roads object `lines_harv` and the HARVtower\_UTM18N
+`point_harv`.
+
+Answer the following questions:
+
+1. What type of R spatial object is created when you import each layer?
+
+2. What is the CRS and extent for each object?
+
+3. Do the files contain points, lines, or polygons?
+
+4. How many spatial objects are in each file?
+
+:::::::::::::::  solution
+
+## Answers
+
+First we import the data:
+
+```{r import-point-line, echo=TRUE}
+lines_harv <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
+point_harv <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
+```
+
+Then we check its class:
+
+```{r}
+class(lines_harv)
+class(point_harv)
+```
+
+We also check the CRS and extent of each object:
+
+```{r}
+st_crs(lines_harv)
+st_bbox(lines_harv)
+st_crs(point_harv)
+st_bbox(point_harv)
+```
+
+To see the number of objects in each file, we can look at the output from when
+we read these objects into R. `lines_harv` contains 13 features (all lines) and
+`point_harv` contains only one point.
+
+
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- Metadata for vector layers include geometry type, CRS, and extent.
+- Load spatial objects into R with the `st_read()` function.
+- Spatial objects can be plotted directly with `ggplot` using the `geom_sf()`
+  function. No need to convert to a dataframe.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+# here starts imports from the 
+# old Episode 7 Explore and Plot by Vector Layer Attributes
+# according to our new outline. Issue #499
+
+
+Vector layers have attributes that can be visualized
+and used for analysis.  Let's identify and query
+layer attributes, as well as how to subset features by specific attribute
+values. Then we will learn how to plot a feature according to a set of
+attribute values.
+
+## Query Vector Feature Metadata
+
+As we discussed in the
+[Open and Plot Vector Layers in R](https://datacarpentry.org/r-raster-vector-geospatial/06-vector-open-shapefile-in-r)
+episode, we can view metadata associated with an R object using:
+
+- `st_geometry_type()` - The type of vector data stored in the object.
+- `nrow()` - The number of features in the object
+- `st_bbox()` - The spatial extent (geographic area covered by)
+  of the object.
+- `st_crs()` - The CRS (spatial projection) of the data.
+
+We started to explore our `point_harv` object in the previous episode. To see a
+summary of all of the metadata associated with our `point_harv` object, we can
+view the object with `View(point_harv)` or print a summary of the object itself
+to the console.
+
+```{r view-object}
+point_harv
+```
+
+We can use the `ncol` function to count the number of attributes associated
+with a spatial object too. Note that the geometry is just another column and
+counts towards the total. Let's look at the roads file:
+
+```{r shapefile-attributes}
+ncol(lines_harv)
+```
+
+We can view the individual name of each attribute using the `names()` function
+in R:
+
+```{r view-shapefile-attributes}
+names(lines_harv)
+```
+
+We could also view just the first 6 rows of attribute values using the `head()`
+function to get a preview of the data:
+
+```{r view-shapefile-attributes-head}
+head(lines_harv)
+```
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge: Attributes for Different Spatial Classes
+
+Explore the attributes associated with the `point_harv` and `aoi_boundary_harv`
+spatial objects.
+
+1. How many attributes does each have?
+
+2. Who owns the site in the `point_harv` data object?
+
+3. Which of the following is NOT an attribute of the `point_harv` data object?
+
+  A) Latitude      B) County     C) Country
+
+:::::::::::::::  solution
+
+## Answers
+
+1) To find the number of attributes, we use the `ncol()` function:
+
+```{r}
+ncol(point_harv)
+ncol(aoi_boundary_harv)
+```
+
+2) Ownership information is in a column named `Ownership`:
+
+```{r}
+point_harv$Ownership
+```
+
+3) To see a list of all of the attributes, we can use the `names()` function:
+
+```{r}
+names(point_harv)
+```
+
+"Country" is not an attribute of this object.
+
+
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Explore Values within One Attribute
+
+We can explore individual values stored within a particular attribute.
+Comparing attributes to a spreadsheet or a data frame, this is similar to
+exploring values in a column. We did this with the `gapminder` dataframe in
+[an earlier lesson](https://datacarpentry.org/r-intro-geospatial/5-data-subsetting).
+For spatial objects, we can use the same syntax: `objectName$attributeName`.
+
+We can see the contents of the `TYPE` field of our lines feature:
+
+```{r explore-attribute-values}
+lines_harv$TYPE
+```
+
+To see only unique values within the `TYPE` field, we can use the `unique()`
+function for extracting the possible values of a character variable (R also is
+able to handle categorical variables called factors; we worked with factors a
+little bit in
+[an earlier lesson](https://datacarpentry.org/r-intro-geospatial/03-data-structures-part1).
+
+```{r explor-attribute-values-factor}
+unique(lines_harv$TYPE)
+```
+
+### Subset Features
+
+We can use the `filter()` function from `dplyr` that we worked with in
+[an earlier lesson](https://datacarpentry.org/r-intro-geospatial/06-dplyr)
+to select a subset of features from a spatial object in R, just like with data
+frames.
+
+For example, we might be interested only in features that are of `TYPE`
+"footpath". Once we subset out this data, we can use it as input to other code
+so that code only operates on the footpath lines.
+
+```{r Subsetting-shapefiles}
+footpath_harv <- lines_harv %>%
+  filter(TYPE == "footpath")
+nrow(footpath_harv)
+```
+
+Our subsetting operation reduces the `features` count to 2. This means that
+only two feature lines in our spatial object have the attribute
+`TYPE == footpath`. We can plot only the footpath lines:
+
+```{r plot-subset-shapefile, fig.cap="Map of the footpaths in the study area."}
+ggplot() +
+  geom_sf(data = footpath_harv) +
+  ggtitle("NEON Harvard Forest Field Site", subtitle = "Footpaths") +
+  coord_sf()
+```
+
+There are two features in our footpaths subset. Why does the plot look like
+there is only one feature? Let's adjust the colors used in our plot. If we have
+2 features in our vector object, we can plot each using a unique color by
+assigning a column name to the color aesthetic (`color =`). We use the syntax
+`aes(color = )` to do this. We can also alter the default line thickness by
+using the `linewidth =` parameter, as the default value of 0.5 can be hard to see.
+Note that size is placed outside of the `aes()` function, as we are not
+connecting line thickness to a data variable.
+
+```{r plot-subset-shapefile-unique-colors, fig.cap="Map of the footpaths in the study area where each feature is colored differently."}
+ggplot() +
+  geom_sf(data = footpath_harv, aes(color = factor(OBJECTID)), linewidth = 1.5) +
+  labs(color = 'Footpath ID') +
+  ggtitle("NEON Harvard Forest Field Site", subtitle = "Footpaths") +
+  coord_sf()
+```
+
+Now, we see that there are in fact two features in our plot!
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge: Subset Spatial Line Objects Part 1
+
+Subset out all `boardwalk` from the lines layer and plot it.
+
+:::::::::::::::  solution
+
+## Answers
+
+First we will save an object with only the boardwalk lines:
+
+```{r}
+boardwalk_harv <- lines_harv %>%
+  filter(TYPE == "boardwalk")
+```
+
+Let's check how many features there are in this subset:
+
+```{r}
+nrow(boardwalk_harv)
+```
+
+Now let's plot that data:
+
+```{r harv-boardwalk-map, fig.cap="Map of the boardwalks in the study area."}
+ggplot() +
+  geom_sf(data = boardwalk_harv, linewidth = 1.5) +
+  ggtitle("NEON Harvard Forest Field Site", subtitle = "Boardwalks") +
+  coord_sf()
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge: Subset Spatial Line Objects Part 2
+
+Subset out all `stone wall` features from the lines layer and plot it. For each
+plot, color each feature using a unique color.
+
+:::::::::::::::  solution
+
+## Answer
+
+First we will save an object with only the stone wall lines and check the
+number of features:
+
+```{r}
+stonewall_harv <- lines_harv %>%
+  filter(TYPE == "stone wall")
+nrow(stonewall_harv)
+```
+
+Now we can plot the data:
+
+```{r harv-stone-wall-map, fig.cap="Map of the stone walls in the study area where each feature is colored differently."}
+ggplot() +
+  geom_sf(data = stonewall_harv, aes(color = factor(OBJECTID)), linewidth = 1.5) +
+  labs(color = 'Wall ID') +
+  ggtitle("NEON Harvard Forest Field Site", subtitle = "Stonewalls") +
+  coord_sf()
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Customize Plots
+
+In the examples above, `ggplot()` automatically selected colors for each line
+based on a default color order. If we don't like those default colors, we can
+create a vector of colors - one for each feature.
+
+First we will check how many unique values our TYPE attribute has:
+
+```{r palette-and-plot}
+unique(lines_harv$TYPE)
+```
+
+Then we can create a palette of four colors, one for each
+feature in our vector object.
+
+```{r}
+road_colors <- c("blue", "green", "navy", "purple")
+```
+
+We can tell `ggplot` to use these colors when we plot the data.
+
+```{r harv-paths-map, fig.cap="Roads and trails in the area."}
+ggplot() +
+  geom_sf(data = lines_harv, aes(color = TYPE)) +
+  scale_color_manual(values = road_colors) +
+  labs(color = 'Road Type') +
+  ggtitle("NEON Harvard Forest Field Site", subtitle = "Roads & Trails") +
+  coord_sf()
+```
+
+
+### Adjust Line Width
+
+We adjusted line width universally earlier. If we want a unique line width for
+each attribute category in our spatial object, we can use the
+same syntax that we used for colors, above.
+
+We already know that we have four different `TYPE`s in the lines\_HARV object,
+so we will set four different line widths.
+
+```{r line-width-unique}
+line_widths <- c(1, 2, 3, 4)
+```
+
+We can use those line widths when we plot the data.
+
+```{r harv-paths-map-wide, fig.cap="Roads and trails in the area demonstrating how to use different line thickness and colors."}
+ggplot() +
+  geom_sf(data = lines_harv, aes(color = TYPE, linewidth = TYPE)) +
+  scale_color_manual(values = road_colors) +
+  labs(color = 'Road Type') +
+  scale_linewidth_manual(values = line_widths) +
+  ggtitle("NEON Harvard Forest Field Site",
+          subtitle = "Roads & Trails - Line width varies") +
+  coord_sf()
+```
+
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge: Plot Line Width by Attribute
+
+In the example above, we set the line widths to be 1, 2, 3, and 4. Because R
+orders alphabetically by default, this gave us a plot where woods roads (the
+last type) were the thickest and boardwalks were the thinnest.
+
+Let's create another plot where we show the different line types with the
+following thicknesses:
+
+1. woods road size = 6
+2. boardwalks size = 1
+3. footpath size = 3
+4. stone wall size = 2
+
+:::::::::::::::  solution
+
+## Answers
+
+First we need to look at the values of our data to see
+what order the road types are in:
+
+```{r}
+unique(lines_harv$TYPE)
+```
+
+We then can create our `line_width` vector setting each of the
+levels to the desired thickness.
+
+```{r}
+line_width <- c(1, 3, 2, 6)
+```
+
+Now we can create our plot.
+
+```{r harv-path-line-types, fig.cap="Roads and trails in the area with different line thickness for each type of paths."}
+ggplot() +
+  geom_sf(data = lines_harv, aes(linewidth = TYPE)) +
+  scale_linewidth_manual(values = line_width) +
+  ggtitle("NEON Harvard Forest Field Site",
+          subtitle = "Roads & Trails - Line width varies") +
+  coord_sf()
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+### Add Plot Legend
+
+We can add a legend to our plot too. When we add a legend, we use the following
+elements to specify labels and colors:
+
+
+Let's add a legend to our plot. We will use the `road_colors` object
+that we created above to color the legend. We can customize the
+appearance of our legend by manually setting different parameters.
+
+
+
+
+```{r add-legend-to-plot, fig.cap="Roads and trails in the study area using thicker lines than the previous figure."}
+ggplot() +
+  geom_sf(data = lines_harv, aes(color = TYPE), linewidth = 1.5) +
+  scale_color_manual(values = road_colors) +
+  labs(color = 'Road Type') +
+  ggtitle("NEON Harvard Forest Field Site",
+          subtitle = "Roads & Trails - Default Legend") +
+  coord_sf()
+```
+
+We can change the appearance of our legend by manually setting different
+parameters.
+
+- `legend.text`: change the font size
+- `legend.box.background`: add an outline box
+
+```{r modify-legend-plot, fig.cap="Map of the paths in the study area with large-font and border around the legend."}
+ggplot() +
+  geom_sf(data = lines_harv, aes(color = TYPE), linewidth = 1.5) +
+  scale_color_manual(values = road_colors) +
+  labs(color = 'Road Type') +
+  theme(legend.text = element_text(size = 20),
+        legend.box.background = element_rect(linewidth = 1)) +
+  ggtitle("NEON Harvard Forest Field Site",
+          subtitle = "Roads & Trails - Modified Legend") +
+  coord_sf()
+```
+
+```{r plot-different-colors, fig.cap="Map of the paths in the study area using a different color palette."}
+new_colors <- c("springgreen", "blue", "magenta", "orange")
+
+ggplot() +
+  geom_sf(data = lines_harv, aes(color = TYPE), linewidth = 1.5) +
+  scale_color_manual(values = new_colors) +
+  labs(color = 'Road Type') +
+  theme(legend.text = element_text(size = 20),
+        legend.box.background = element_rect(size = 1)) +
+  ggtitle("NEON Harvard Forest Field Site",
+          subtitle = "Roads & Trails - Pretty Colors") +
+  coord_sf()
+```
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Data Tip
+
+You can modify the default R color palette using the palette method. For
+example `palette(rainbow(6))` or `palette(terrain.colors(6))`. You can reset
+the palette colors using `palette("default")`!
+
+You can also use colorblind-friendly palettes such as those in the
+[viridis package](https://cran.r-project.org/package=viridis).
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge: Plot Lines by Attribute
+
+Create a plot that emphasizes only roads where bicycles and horses are allowed.
+To emphasize this, make the lines where bicycles are not allowed THINNER than
+the roads where bicycles are allowed.
+NOTE: this attribute information is located in the `lines_harv$BicyclesHo`
+attribute.
+
+Be sure to add a title and legend to your map. You might consider a color
+palette that has all bike/horse-friendly roads displayed in a bright color. All
+other lines can be black.
+
+:::::::::::::::  solution
+
+## Answers
+
+First we explore the `BicyclesHo` attribute to learn the values that correspond
+to the roads we need.
+
+```{r}
+lines_harv %>%
+  pull(BicyclesHo) %>%
+  unique()
+```
+
+Now, we can create a data frame with only those roads where bicycles and horses 
+are allowed.
+
+```{r}
+roads_bike_horse <-
+  lines_harv %>%
+  filter(BicyclesHo == "Bicycles and Horses Allowed")
+
+```
+
+Finally, we plot the needed roads after setting them to magenta and a thicker 
+line width.
+
+```{r harv-paths-bike-horses, fig.cap="Roads and trails in the area highlighting paths where horses and bikes are allowed."}
+ggplot() +
+  geom_sf(data = lines_harv) +
+  geom_sf(data = roads_bike_horse, aes(color = BicyclesHo), linewidth = 2) +
+  scale_color_manual(values = "magenta") +
+  ggtitle("NEON Harvard Forest Field Site",
+          subtitle = "Roads Where Bikes and Horses Are Allowed") +
+  coord_sf()
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge: Plot Polygon by Attribute
+
+1. Create a map of the state boundaries in the United States using the data
+  located in your downloaded data folder: `NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014`.
+  Apply a line color to each state using its `region` value. Add a legend.
+
+:::::::::::::::  solution
+
+## Answers
+
+First we read in the data and check how many levels there are in the `region`
+column:
+
+```{r}
+state_boundary_us <-
+st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp") %>%
+# NOTE: We need neither Z nor M coordinates!
+st_zm()
+
+state_boundary_us$region <- as.factor(state_boundary_us$region)
+levels(state_boundary_us$region)
+```
+
+Next we set a color vector with that many items:
+
+```{r}
+colors <- c("purple", "springgreen", "yellow", "brown", "navy")
+```
+
+Now we can create our plot:
+
+```{r colored-state-boundaries, fig.cap="Map of the continental United States where the state lines are colored by region."}
+ggplot() +
+  geom_sf(data = state_boundary_us, aes(color = region), linewidth = 1) +
+  scale_color_manual(values = colors) +
+  ggtitle("Contiguous U.S. State Boundaries") +
+  coord_sf()
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- Spatial objects in `sf` are similar to standard data frames and can be
+  manipulated using the same functions.
+- Almost any feature of a plot can be customized using the various functions
+  and options in the `ggplot2` package.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+# this comes from old episode 8 (Plot Multiple Vector Layers)
+
+## Plotting Multiple Vector Layers
+
+In the [previous episode](07-vector-shapefile-attributes-in-r/), we learned how
+to plot information from a single vector layer and do some plot customization
+including adding a custom legend. However, what if we want to create a more
+complex plot with many vector layers and unique symbols that need to be
+represented clearly in a legend?
+
+Now, let's create a plot that combines our tower location (`point_harv`), site
+boundary (`aoi_boundary_harv`) and roads (`lines_harv`) spatial objects. We
+will need to build a custom legend as well.
+
+To begin, we will create a plot with the site boundary as the first layer. Then
+layer the tower location and road data on top using `+`.
+
+```{r plot-many-shapefiles}
+ggplot() +
+  geom_sf(data = aoi_boundary_harv, fill = "grey", color = "grey") +
+  geom_sf(data = lines_harv, aes(color = TYPE), size = 1) +
+  geom_sf(data = point_harv) +
+  ggtitle("NEON Harvard Forest Field Site") +
+  coord_sf()
+```
+
+Next, let's build a custom legend using the symbology (the colors and symbols)
+that we used to create the plot above. For example, it might be good if the
+lines were symbolized as lines. In the previous episode, you may have noticed
+that the default legend behavior for `geom_sf` is to draw a 'patch' for each
+legend entry. If you want the legend to draw lines or points, you need to add
+an instruction to the `geom_sf` call - in this case, `show.legend = 'line'`.
+
+```{r plot-custom-shape}
+ggplot() +
+  geom_sf(data = aoi_boundary_harv, fill = "grey", color = "grey") +
+  geom_sf(data = lines_harv, aes(color = TYPE),
+          show.legend = "line", size = 1) +
+  geom_sf(data = point_harv, aes(fill = Sub_Type), color = "black") +
+  scale_color_manual(values = road_colors) +
+  scale_fill_manual(values = "black") +
+  ggtitle("NEON Harvard Forest Field Site") +
+  coord_sf()
+```
+
+Now lets adjust the legend titles by passing a `name` to the respective `color`
+and `fill` palettes.
+
+```{r create-custom-legend}
+ggplot() +
+  geom_sf(data = aoi_boundary_harv, fill = "grey", color = "grey") +
+  geom_sf(data = point_harv, aes(fill = Sub_Type)) +
+  geom_sf(data = lines_harv, aes(color = TYPE), show.legend = "line",
+          size = 1) +
+  scale_color_manual(values = road_colors, name = "Line Type") +
+  scale_fill_manual(values = "black", name = "Tower Location") +
+  ggtitle("NEON Harvard Forest Field Site") +
+  coord_sf()
+```
+
+Finally, it might be better if the points were symbolized as a symbol. We can
+customize this using `shape` parameters in our call to `geom_sf`: 16 is a point
+symbol, 15 is a box.
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Data Tip
+
+To view a short list of `shape` symbols,
+type `?pch` into the R console.
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+```{r custom-symbols}
+ggplot() +
+  geom_sf(data = aoi_boundary_harv, fill = "grey", color = "grey") +
+  geom_sf(data = point_harv, aes(fill = Sub_Type), shape = 15) +
+  geom_sf(data = lines_harv, aes(color = TYPE),
+          show.legend = "line", size = 1) +
+  scale_color_manual(values = road_colors, name = "Line Type") +
+  scale_fill_manual(values = "black", name = "Tower Location") +
+  ggtitle("NEON Harvard Forest Field Site") +
+  coord_sf()
+```
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge: Plot Polygon by Attribute
+
+1. Using the `NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp` ESRI `shapefile`,
+  create a map of study plot locations, with each point colored by the soil
+  type (`soilTypeOr`). How many different soil types are there at this
+  particular field site? Overlay this layer on top of the `lines_harv` layer
+  (the roads). Create a custom legend that applies line symbols to lines and
+  point symbols to the points.
+
+2. Modify the plot above. Tell R to plot each point, using a different symbol
+   of `shape` value.
+
+:::::::::::::::  solution
+
+## Answers
+
+First we need to read in the data and see how many unique soils are represented
+in the `soilTypeOr` attribute.
+
+```{r}
+plot_locations <-
+  st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
+
+plot_locations$soilTypeOr <- as.factor(plot_locations$soilTypeOr)
+levels(plot_locations$soilTypeOr)
+```
+
+Next we can create a new color palette with one color for each soil type.
+
+```{r}
+blue_orange <- c("cornflowerblue", "darkorange")
+```
+
+Finally, we will create our plot.
+
+```{r harv-plot-locations-bg}
+ggplot() +
+  geom_sf(data = lines_harv, aes(color = TYPE), show.legend = "line") +
+  geom_sf(data = plot_locations, aes(fill = soilTypeOr),
+          shape = 21, show.legend = 'point') +
+  scale_color_manual(name = "Line Type", values = road_colors,
+     guide = guide_legend(override.aes = list(linetype = "solid",
+                                              shape = NA))) +
+  scale_fill_manual(name = "Soil Type", values = blue_orange,
+     guide = guide_legend(override.aes = list(linetype = "blank", shape = 21,
+                                              colour = "black"))) +
+  ggtitle("NEON Harvard Forest Field Site") +
+  coord_sf()
+```
+
+If we want each soil to be shown with a different symbol, we can give multiple
+values to the `scale_shape_manual()` argument.
+
+```{r harv-plot-locations-pch}
+ggplot() +
+  geom_sf(data = lines_harv, aes(color = TYPE), show.legend = "line", size = 1) +
+  geom_sf(data = plot_locations, aes(fill = soilTypeOr, shape = soilTypeOr),
+          show.legend = 'point', size = 3) +
+  scale_shape_manual(name = "Soil Type", values = c(21, 22)) +
+  scale_color_manual(name = "Line Type", values = road_colors,
+     guide = guide_legend(override.aes = list(linetype = "solid", shape = NA))) +
+  scale_fill_manual(name = "Soil Type", values = blue_orange,
+     guide = guide_legend(override.aes = list(linetype = "blank", shape = c(21, 22), color = "black"))) +
+  ggtitle("NEON Harvard Forest Field Site") +
+  coord_sf()
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
