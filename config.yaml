@@ -73,7 +73,8 @@ episodes:
 - 12-time-series-raster.Rmd
 - 13-plot-time-series-rasters-in-r.Rmd
 - 14-extract-ndvi-from-rasters-in-r.Rmd
-- old-01-raster-structure.Rmd
+- 15-old-01-raster-structure.Rmd
+- 16-old-02-raster-plot.Rmd
 
 # Information for Learners
 learners: 
