@@ -59,8 +59,8 @@ contact: 'team@carpentries.org'
 
 # Order of episodes in your lesson
 episodes: 
-- 01-raster-structure.Rmd
-- 02-raster-plot.Rmd
+- 01-new-vector-open-shapefile-in-r.Rmd
+- 02-new-rasters.Rmd
 - 03-raster-reproject-in-r.Rmd
 - 04-raster-calculations-in-r.Rmd
 - 05-raster-multi-band-in-r.Rmd
@@ -73,6 +73,7 @@ episodes:
 - 12-time-series-raster.Rmd
 - 13-plot-time-series-rasters-in-r.Rmd
 - 14-extract-ndvi-from-rasters-in-r.Rmd
+- old-01-raster-structure.Rmd
 
 # Information for Learners
 learners: 
