@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/01-new-vector-open-shapefile-in-r.html</loc>
+  </url>
+  <url>
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/01-raster-structure.html</loc>
+  </url>
+  <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/02-new-rasters.html</loc>
   </url>
   <url>
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/02-raster-plot.html</loc>
@@ -91,7 +97,13 @@
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/index.html</loc>
   </url>
   <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/01-new-vector-open-shapefile-in-r.html</loc>
+  </url>
+  <url>
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/01-raster-structure.html</loc>
+  </url>
+  <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/02-new-rasters.html</loc>
   </url>
   <url>
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/02-raster-plot.html</loc>
@@ -163,6 +175,9 @@
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/key-points.html</loc>
   </url>
   <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/old-01-raster-structure.html</loc>
+  </url>
+  <url>
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/profiles.html</loc>
   </url>
   <url>
@@ -173,6 +188,9 @@
   </url>
   <url>
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/key-points.html</loc>
+  </url>
+  <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/old-01-raster-structure.html</loc>
   </url>
   <url>
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/profiles.html</loc>

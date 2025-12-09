@@ -236,7 +236,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="01-raster-structure.html">1. Intro to Raster Data</a>
+        <a href="01-new-vector-open-shapefile-in-r.html">1. Open and Plot Vector Layers</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -248,7 +248,7 @@
 <div class="accordion accordion-flush" id="accordionFlush3">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading3">
-        <a href="02-raster-plot.html">2. Plot Raster Data</a>
+        <a href="02-new-rasters.html">2. Intro to Raster Data</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -401,6 +401,18 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush16">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading16">
+        <a href="old-01-raster-structure.html">15. Intro to Raster Data</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -456,7 +468,23 @@
     <main id="main-content" class="main-content"><div class="container lesson-content">
         
         
-<section id="01-raster-structure"><h2 class="section-heading"><a href="01-raster-structure.html">Intro to Raster Data</a></h2>
+<section id="01-new-vector-open-shapefile-in-r"><h2 class="section-heading"><a href="01-new-vector-open-shapefile-in-r.html">Open and Plot Vector Layershere starts imports from the<a class="anchor" aria-label="anchor" href="#here-starts-imports-from-the"></a>old Episode 7 Explore and Plot by Vector Layer Attributes<a class="anchor" aria-label="anchor" href="#old-episode-7-explore-and-plot-by-vector-layer-attributes"></a>according to our new outline. Issue #499<a class="anchor" aria-label="anchor" href="#according-to-our-new-outline--issue-499"></a>this comes from old episode 8 (Plot Multiple Vector Layers)<a class="anchor" aria-label="anchor" href="#this-comes-from-old-episode-8-plot-multiple-vector-layers"></a></a></h2>
+<hr class="half-width">
+<ul>
+<li>Metadata for vector layers include geometry type, CRS, and
+extent.</li>
+<li>Load spatial objects into R with the <code>st_read()</code>
+function.</li>
+<li>Spatial objects can be plotted directly with <code>ggplot</code>
+using the <code>geom_sf()</code> function. No need to convert to a
+dataframe.</li>
+</ul>
+<ul>
+<li>Spatial objects in <code>sf</code> are similar to standard data
+frames and can be manipulated using the same functions.</li>
+<li>Almost any feature of a plot can be customized using the various
+functions and options in the <code>ggplot2</code> package.</li>
+</ul></section><section id="02-new-rasters"><h2 class="section-heading"><a href="02-new-rasters.html">Intro to Raster Data</a></h2>
 <hr class="half-width">
 <ul>
 <li>The GeoTIFF file format includes metadata about the raster
@@ -465,15 +493,6 @@ data.</li>
 to convert it to a dataframe.</li>
 <li>R stores CRS information in the Proj4 format.</li>
 <li>Be careful when dealing with missing or bad data values.</li>
-</ul></section><section id="02-raster-plot"><h2 class="section-heading"><a href="02-raster-plot.html">Plot Raster Data</a></h2>
-<hr class="half-width">
-<ul>
-<li>Continuous data ranges can be grouped into categories using
-<code>mutate()</code> and <code>cut()</code>.</li>
-<li>Use built-in <code>terrain.colors()</code> or set your preferred
-color scheme manually.</li>
-<li>Layer rasters on top of one another by using the <code>alpha</code>
-aesthetic.</li>
 </ul></section><section id="03-raster-reproject-in-r"><h2 class="section-heading"><a href="03-raster-reproject-in-r.html">Reproject Raster Data</a></h2>
 <hr class="half-width">
 <ul>
@@ -570,6 +589,15 @@ statistics for cells in a raster object.</li>
 <li>The pipe (<code>|</code>) operator means <code>or</code>.</li>
 <li>Use the <code>rbind()</code> function to combine data frames that
 have the same column names.</li>
+</ul></section><section id="old-01-raster-structure"><h2 class="section-heading"><a href="old-01-raster-structure.html">Intro to Raster Data</a></h2>
+<hr class="half-width">
+<ul>
+<li>The GeoTIFF file format includes metadata about the raster
+data.</li>
+<li>To plot raster data with the <code>ggplot2</code> package, we need
+to convert it to a dataframe.</li>
+<li>R stores CRS information in the Proj4 format.</li>
+<li>Be careful when dealing with missing or bad data values.</li>
 </ul></section>
 </div>
     </main>

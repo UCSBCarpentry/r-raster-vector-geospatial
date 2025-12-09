@@ -236,7 +236,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="01-raster-structure.html">1. Intro to Raster Data</a>
+        <a href="01-new-vector-open-shapefile-in-r.html">1. Open and Plot Vector Layers</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -248,7 +248,7 @@
 <div class="accordion accordion-flush" id="accordionFlush3">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading3">
-        <a href="02-raster-plot.html">2. Plot Raster Data</a>
+        <a href="02-new-rasters.html">2. Intro to Raster Data</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -401,6 +401,18 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush16">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading16">
+        <a href="old-01-raster-structure.html">15. Intro to Raster Data</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -456,57 +468,122 @@
     <main id="main-content" class="main-content"><div class="container lesson-content">
         
         
-<section id="01-raster-structure"><h2 class="section-heading"><a href="01-raster-structure.html">Intro to Raster Data</a></h2>
+<section id="01-new-vector-open-shapefile-in-r"><h2 class="section-heading"><a href="01-new-vector-open-shapefile-in-r.html">Open and Plot Vector Layershere starts imports from the<a class="anchor" aria-label="anchor" href="#here-starts-imports-from-the"></a>old Episode 7 Explore and Plot by Vector Layer Attributes<a class="anchor" aria-label="anchor" href="#old-episode-7-explore-and-plot-by-vector-layer-attributes"></a>according to our new outline. Issue #499<a class="anchor" aria-label="anchor" href="#according-to-our-new-outline--issue-499"></a>this comes from old episode 8 (Plot Multiple Vector Layers)<a class="anchor" aria-label="anchor" href="#this-comes-from-old-episode-8-plot-multiple-vector-layers"></a></a></h2>
 <hr class="half-width">
-<h3 id="01-raster-structure-figure-1">Figure 1</h3>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-1">Figure 1</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Extent image’</p>
+<figure><img src="fig/dc-spatial-vector/spatial_extent.png" alt="Extent image" class="figure mx-auto d-block"></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-2">Figure 2</h3>
+<figure><img src="fig/01-new-vector-open-shapefile-in-r-rendered-plot-shapefile-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-3">Figure 3</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Map of the footpaths in the study area.’</p>
+<figure style="text-align: center"><img src="fig/01-new-vector-open-shapefile-in-r-rendered-plot-subset-shapefile-1.png" alt="Map of the footpaths in the study area." class="figure mx-auto d-block"><figcaption>
+Map of the footpaths in the study area.
+</figcaption></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-4">Figure 4</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Map of the footpaths in the study area where each feature is colored differently.’</p>
+<figure style="text-align: center"><img src="fig/01-new-vector-open-shapefile-in-r-rendered-plot-subset-shapefile-unique-colors-1.png" alt="Map of the footpaths in the study area where each feature is colored differently." class="figure mx-auto d-block"><figcaption>
+Map of the footpaths in the study area where each feature is colored
+differently.
+</figcaption></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-5">Figure 5</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Map of the boardwalks in the study area.’</p>
+<figure style="text-align: center"><img src="fig/01-new-vector-open-shapefile-in-r-rendered-harv-boardwalk-map-1.png" alt="Map of the boardwalks in the study area." class="figure mx-auto d-block"><figcaption>
+Map of the boardwalks in the study area.
+</figcaption></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-6">Figure 6</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Map of the stone walls in the study area where each feature is colored differently.’</p>
+<figure style="text-align: center"><img src="fig/01-new-vector-open-shapefile-in-r-rendered-harv-stone-wall-map-1.png" alt="Map of the stone walls in the study area where each feature is colored differently." class="figure mx-auto d-block"><figcaption>
+Map of the stone walls in the study area where each feature is colored
+differently.
+</figcaption></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-7">Figure 7</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Roads and trails in the area.’</p>
+<figure style="text-align: center"><img src="fig/01-new-vector-open-shapefile-in-r-rendered-harv-paths-map-1.png" alt="Roads and trails in the area." class="figure mx-auto d-block"><figcaption>
+Roads and trails in the area.
+</figcaption></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-8">Figure 8</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Roads and trails in the area demonstrating how to use different line thickness and colors.’</p>
+<figure style="text-align: center"><img src="fig/01-new-vector-open-shapefile-in-r-rendered-harv-paths-map-wide-1.png" alt="Roads and trails in the area demonstrating how to use different line thickness and colors." class="figure mx-auto d-block"><figcaption>
+Roads and trails in the area demonstrating how to use different line
+thickness and colors.
+</figcaption></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-9">Figure 9</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Roads and trails in the area with different line thickness for each type of paths.’</p>
+<figure style="text-align: center"><img src="fig/01-new-vector-open-shapefile-in-r-rendered-harv-path-line-types-1.png" alt="Roads and trails in the area with different line thickness for each type of paths." class="figure mx-auto d-block"><figcaption>
+Roads and trails in the area with different line thickness for each type
+of paths.
+</figcaption></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-10">Figure 10</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Roads and trails in the study area using thicker lines than the previous figure.’</p>
+<figure style="text-align: center"><img src="fig/01-new-vector-open-shapefile-in-r-rendered-add-legend-to-plot-1.png" alt="Roads and trails in the study area using thicker lines than the previous figure." class="figure mx-auto d-block"><figcaption>
+Roads and trails in the study area using thicker lines than the previous
+figure.
+</figcaption></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-11">Figure 11</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Map of the paths in the study area with large-font and border around the legend.’</p>
+<figure style="text-align: center"><img src="fig/01-new-vector-open-shapefile-in-r-rendered-modify-legend-plot-1.png" alt="Map of the paths in the study area with large-font and border around the legend." class="figure mx-auto d-block"><figcaption>
+Map of the paths in the study area with large-font and border around the
+legend.
+</figcaption></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-12">Figure 12</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Map of the paths in the study area using a different color palette.’</p>
+<figure style="text-align: center"><img src="fig/01-new-vector-open-shapefile-in-r-rendered-plot-different-colors-1.png" alt="Map of the paths in the study area using a different color palette." class="figure mx-auto d-block"><figcaption>
+Map of the paths in the study area using a different color palette.
+</figcaption></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-13">Figure 13</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Roads and trails in the area highlighting paths where horses and bikes are allowed.’</p>
+<figure style="text-align: center"><img src="fig/01-new-vector-open-shapefile-in-r-rendered-harv-paths-bike-horses-1.png" alt="Roads and trails in the area highlighting paths where horses and bikes are allowed." class="figure mx-auto d-block"><figcaption>
+Roads and trails in the area highlighting paths where horses and bikes
+are allowed.
+</figcaption></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-14">Figure 14</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Map of the continental United States where the state lines are colored by region.’</p>
+<figure style="text-align: center"><img src="fig/01-new-vector-open-shapefile-in-r-rendered-colored-state-boundaries-1.png" alt="Map of the continental United States where the state lines are colored by region." class="figure mx-auto d-block"><figcaption>
+Map of the continental United States where the state lines are colored
+by region.
+</figcaption></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-15">Figure 15</h3>
+<figure><img src="fig/01-new-vector-open-shapefile-in-r-rendered-plot-many-shapefiles-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-16">Figure 16</h3>
+<figure><img src="fig/01-new-vector-open-shapefile-in-r-rendered-plot-custom-shape-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-17">Figure 17</h3>
+<figure><img src="fig/01-new-vector-open-shapefile-in-r-rendered-create-custom-legend-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-18">Figure 18</h3>
+<figure><img src="fig/01-new-vector-open-shapefile-in-r-rendered-custom-symbols-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-19">Figure 19</h3>
+<figure><img src="fig/01-new-vector-open-shapefile-in-r-rendered-harv-plot-locations-bg-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="01-new-vector-open-shapefile-in-r-figure-20">Figure 20</h3>
+<figure><img src="fig/01-new-vector-open-shapefile-in-r-rendered-harv-plot-locations-pch-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="02-new-rasters"><h2 class="section-heading"><a href="02-new-rasters.html">Intro to Raster Data</a></h2>
+<hr class="half-width">
+<h3 id="02-new-rasters-figure-1">Figure 1</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Raster plot with ggplot2 using the viridis color scale’</p>
-<figure style="text-align: center"><img src="fig/01-raster-structure-rendered-ggplot-raster-1.png" alt="Raster plot with ggplot2 using the viridis color scale" class="figure mx-auto d-block"><figcaption>
+<figure style="text-align: center"><img src="fig/02-new-rasters-rendered-ggplot-raster-1.png" alt="Raster plot with ggplot2 using the viridis color scale" class="figure mx-auto d-block"><figcaption>
 Raster plot with ggplot2 using the viridis color scale
 </figcaption></figure><hr>
-<h3 id="01-raster-structure-figure-2">Figure 2</h3>
-<figure><img src="fig/01-raster-structure-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="01-raster-structure-figure-3">Figure 3</h3>
+<h3 id="02-new-rasters-figure-2">Figure 2</h3>
+<figure><img src="fig/02-new-rasters-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="02-new-rasters-figure-3">Figure 3</h3>
 <p aria-hidden="true">Image 1 of 1: ‘UTM zones in the USA.’</p>
 <figure><img src="fig/Utm-zones-USA.svg" alt="UTM zones in the USA." class="figure mx-auto d-block"><div class="figcaption">The UTM zones across the continental United
 States. From: <a href="https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg" class="external-link uri">https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg</a>
 </div>
 </figure><hr>
-<h3 id="01-raster-structure-figure-4">Figure 4</h3>
+<h3 id="02-new-rasters-figure-4">Figure 4</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Multi-band raster image’</p>
 <figure><img src="fig/dc-spatial-raster/single_multi_raster.png" alt="Multi-band raster image" class="figure mx-auto d-block"></figure><hr>
-<h3 id="01-raster-structure-figure-5">Figure 5</h3>
-<figure><img src="fig/01-raster-structure-rendered-demonstrate-no-data-black-ggplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="01-raster-structure-figure-6">Figure 6</h3>
-<figure><img src="fig/01-raster-structure-rendered-demonstrate-no-data-ggplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="01-raster-structure-figure-7">Figure 7</h3>
-<figure><img src="fig/01-raster-structure-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="01-raster-structure-figure-8">Figure 8</h3>
-<figure><img src="fig/01-raster-structure-rendered-demo-bad-data-highlighting-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="01-raster-structure-figure-9">Figure 9</h3>
-<figure><img src="fig/01-raster-structure-rendered-view-raster-histogram-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="01-raster-structure-figure-10">Figure 10</h3>
-<figure><img src="fig/01-raster-structure-rendered-view-raster-histogram2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="02-raster-plot"><h2 class="section-heading"><a href="02-raster-plot.html">Plot Raster Data</a></h2>
-<hr class="half-width">
-<h3 id="02-raster-plot-figure-1">Figure 1</h3>
-<figure><img src="fig/02-raster-plot-rendered-histogram-breaks-ggplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="02-raster-plot-figure-2">Figure 2</h3>
-<figure><img src="fig/02-raster-plot-rendered-histogram-custom-breaks-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="02-raster-plot-figure-3">Figure 3</h3>
-<figure><img src="fig/02-raster-plot-rendered-raster-with-breaks-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="02-raster-plot-figure-4">Figure 4</h3>
-<figure><img src="fig/02-raster-plot-rendered-ggplot-breaks-customcolors-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="02-raster-plot-figure-5">Figure 5</h3>
-<figure><img src="fig/02-raster-plot-rendered-add-ggplot-labels-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="02-raster-plot-figure-6">Figure 6</h3>
-<figure><img src="fig/02-raster-plot-rendered-challenge-code-plotting-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="02-raster-plot-figure-7">Figure 7</h3>
-<figure><img src="fig/02-raster-plot-rendered-raster-hillshade-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="02-raster-plot-figure-8">Figure 8</h3>
-<figure><img src="fig/02-raster-plot-rendered-overlay-hillshade-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="02-raster-plot-figure-9">Figure 9</h3>
-<figure><img src="fig/02-raster-plot-rendered-challenge-hillshade-layering-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="02-raster-plot-figure-10">Figure 10</h3>
-<figure><img src="fig/02-raster-plot-rendered-challenge-hillshade-layering-2.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="03-raster-reproject-in-r"><h2 class="section-heading"><a href="03-raster-reproject-in-r.html">Reproject Raster Data</a></h2>
+<h3 id="02-new-rasters-figure-5">Figure 5</h3>
+<figure><img src="fig/02-new-rasters-rendered-demonstrate-no-data-black-ggplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="02-new-rasters-figure-6">Figure 6</h3>
+<figure><img src="fig/02-new-rasters-rendered-demonstrate-no-data-ggplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="02-new-rasters-figure-7">Figure 7</h3>
+<figure><img src="fig/02-new-rasters-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="02-new-rasters-figure-8">Figure 8</h3>
+<figure><img src="fig/02-new-rasters-rendered-demo-bad-data-highlighting-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="02-new-rasters-figure-9">Figure 9</h3>
+<figure><img src="fig/02-new-rasters-rendered-view-raster-histogram-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="02-new-rasters-figure-10">Figure 10</h3>
+<figure><img src="fig/02-new-rasters-rendered-view-raster-histogram2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="03-raster-reproject-in-r"><h2 class="section-heading"><a href="03-raster-reproject-in-r.html">Reproject Raster Data</a></h2>
 <hr class="half-width">
 <h3 id="03-raster-reproject-in-r-figure-1">Figure 1</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Source: National Ecological Observatory Network (NEON).’</p>
@@ -685,7 +762,36 @@ Image Source: National Ecological Observatory Network (NEON)</p>
 <h3 id="14-extract-ndvi-from-rasters-in-r-figure-5">Figure 5</h3>
 <figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-view-all-rgb-SJER-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
 <h3 id="14-extract-ndvi-from-rasters-in-r-figure-6">Figure 6</h3>
-<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-plot-clean-HARV-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section>
+<figure><img src="fig/14-extract-ndvi-from-rasters-in-r-rendered-plot-clean-HARV-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="old-01-raster-structure"><h2 class="section-heading"><a href="old-01-raster-structure.html">Intro to Raster Data</a></h2>
+<hr class="half-width">
+<h3 id="old-01-raster-structure-figure-1">Figure 1</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Raster plot with ggplot2 using the viridis color scale’</p>
+<figure style="text-align: center"><img src="fig/old-01-raster-structure-rendered-ggplot-raster-1.png" alt="Raster plot with ggplot2 using the viridis color scale" class="figure mx-auto d-block"><figcaption>
+Raster plot with ggplot2 using the viridis color scale
+</figcaption></figure><hr>
+<h3 id="old-01-raster-structure-figure-2">Figure 2</h3>
+<figure><img src="fig/old-01-raster-structure-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="old-01-raster-structure-figure-3">Figure 3</h3>
+<p aria-hidden="true">Image 1 of 1: ‘UTM zones in the USA.’</p>
+<figure><img src="fig/Utm-zones-USA.svg" alt="UTM zones in the USA." class="figure mx-auto d-block"><div class="figcaption">The UTM zones across the continental United
+States. From: <a href="https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg" class="external-link uri">https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg</a>
+</div>
+</figure><hr>
+<h3 id="old-01-raster-structure-figure-4">Figure 4</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Multi-band raster image’</p>
+<figure><img src="fig/dc-spatial-raster/single_multi_raster.png" alt="Multi-band raster image" class="figure mx-auto d-block"></figure><hr>
+<h3 id="old-01-raster-structure-figure-5">Figure 5</h3>
+<figure><img src="fig/old-01-raster-structure-rendered-demonstrate-no-data-black-ggplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="old-01-raster-structure-figure-6">Figure 6</h3>
+<figure><img src="fig/old-01-raster-structure-rendered-demonstrate-no-data-ggplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="old-01-raster-structure-figure-7">Figure 7</h3>
+<figure><img src="fig/old-01-raster-structure-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="old-01-raster-structure-figure-8">Figure 8</h3>
+<figure><img src="fig/old-01-raster-structure-rendered-demo-bad-data-highlighting-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="old-01-raster-structure-figure-9">Figure 9</h3>
+<figure><img src="fig/old-01-raster-structure-rendered-view-raster-histogram-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="old-01-raster-structure-figure-10">Figure 10</h3>
+<figure><img src="fig/old-01-raster-structure-rendered-view-raster-histogram2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section>
 </div>
     </main>
 </div>
