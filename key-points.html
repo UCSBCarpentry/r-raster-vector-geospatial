@@ -404,7 +404,19 @@
 <div class="accordion accordion-flush" id="accordionFlush16">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading16">
-        <a href="old-01-raster-structure.html">15. Intro to Raster Data</a>
+        <a href="15-old-01-raster-structure.html">15. Intro to Raster Data</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush17">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading17">
+        <a href="16-old-02-raster-plot.html">16. Plot Raster Data</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -589,7 +601,7 @@ statistics for cells in a raster object.</li>
 <li>The pipe (<code>|</code>) operator means <code>or</code>.</li>
 <li>Use the <code>rbind()</code> function to combine data frames that
 have the same column names.</li>
-</ul></section><section id="old-01-raster-structure"><h2 class="section-heading"><a href="old-01-raster-structure.html">Intro to Raster Data</a></h2>
+</ul></section><section id="15-old-01-raster-structure"><h2 class="section-heading"><a href="15-old-01-raster-structure.html">Intro to Raster Data</a></h2>
 <hr class="half-width">
 <ul>
 <li>The GeoTIFF file format includes metadata about the raster
@@ -598,6 +610,15 @@ data.</li>
 to convert it to a dataframe.</li>
 <li>R stores CRS information in the Proj4 format.</li>
 <li>Be careful when dealing with missing or bad data values.</li>
+</ul></section><section id="16-old-02-raster-plot"><h2 class="section-heading"><a href="16-old-02-raster-plot.html">Plot Raster Data</a></h2>
+<hr class="half-width">
+<ul>
+<li>Continuous data ranges can be grouped into categories using
+<code>mutate()</code> and <code>cut()</code>.</li>
+<li>Use built-in <code>terrain.colors()</code> or set your preferred
+color scheme manually.</li>
+<li>Layer rasters on top of one another by using the <code>alpha</code>
+aesthetic.</li>
 </ul></section>
 </div>
     </main>

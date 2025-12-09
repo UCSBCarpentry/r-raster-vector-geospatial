@@ -49,6 +49,12 @@
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/14-extract-ndvi-from-rasters-in-r.html</loc>
   </url>
   <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/15-old-01-raster-structure.html</loc>
+  </url>
+  <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/16-old-02-raster-plot.html</loc>
+  </url>
+  <url>
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/404.html</loc>
   </url>
   <url>
@@ -143,6 +149,12 @@
   </url>
   <url>
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/14-extract-ndvi-from-rasters-in-r.html</loc>
+  </url>
+  <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/15-old-01-raster-structure.html</loc>
+  </url>
+  <url>
+    <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/16-old-02-raster-plot.html</loc>
   </url>
   <url>
     <loc>https://datacarpentry.org/r-raster-vector-geospatial/instructor/404.html</loc>
