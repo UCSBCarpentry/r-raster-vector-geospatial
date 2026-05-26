@@ -84,7 +84,7 @@ ggplot() +
   coord_sf()
 ```
 
-<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-challenge-vector-raster-overlay-1.png" style="display: block; margin: auto;" />
+<img src="fig/08-vector-plot-shapefiles-custom-legend-rendered-challenge-vector-raster-overlay-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 

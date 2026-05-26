@@ -68,7 +68,7 @@ ggplot() +
     geom_bar(data = dsm_harv_df, aes(fct_elevation))
 ```
 
-<img src="fig/16-old-02-raster-plot-rendered-histogram-breaks-ggplot-1.png" style="display: block; margin: auto;" />
+<img src="fig/16-old-02-raster-plot-rendered-histogram-breaks-ggplot-1.png" alt="" style="display: block; margin: auto;" />
 
 If we want to know the cutoff values for the groups, we can ask for the unique 
 values of `fct_elevation`:
@@ -140,7 +140,7 @@ ggplot() +
   geom_bar(data = dsm_harv_df, aes(fct_elevation_2))
 ```
 
-<img src="fig/16-old-02-raster-plot-rendered-histogram-custom-breaks-1.png" style="display: block; margin: auto;" />
+<img src="fig/16-old-02-raster-plot-rendered-histogram-custom-breaks-1.png" alt="" style="display: block; margin: auto;" />
 
 And we can get the count of values in each group in the same way we did before:
 
@@ -167,7 +167,7 @@ ggplot() +
   coord_quickmap()
 ```
 
-<img src="fig/16-old-02-raster-plot-rendered-raster-with-breaks-1.png" style="display: block; margin: auto;" />
+<img src="fig/16-old-02-raster-plot-rendered-raster-with-breaks-1.png" alt="" style="display: block; margin: auto;" />
 
 The plot above uses the default colors inside `ggplot` for raster objects.
 We can specify our own colors to make the plot look a little nicer.
@@ -199,7 +199,7 @@ ggplot() +
     coord_quickmap()
 ```
 
-<img src="fig/16-old-02-raster-plot-rendered-ggplot-breaks-customcolors-1.png" style="display: block; margin: auto;" />
+<img src="fig/16-old-02-raster-plot-rendered-ggplot-breaks-customcolors-1.png" alt="" style="display: block; margin: auto;" />
 
 ### More Plot Formatting
 
@@ -227,7 +227,7 @@ ggplot() +
     coord_quickmap()
 ```
 
-<img src="fig/16-old-02-raster-plot-rendered-add-ggplot-labels-1.png" style="display: block; margin: auto;" />
+<img src="fig/16-old-02-raster-plot-rendered-add-ggplot-labels-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -261,7 +261,7 @@ ggplot() +
     coord_quickmap()
 ```
 
-<img src="fig/16-old-02-raster-plot-rendered-challenge-code-plotting-1.png" style="display: block; margin: auto;" />
+<img src="fig/16-old-02-raster-plot-rendered-challenge-code-plotting-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 
@@ -286,15 +286,15 @@ dsm_hill_harv
 ```
 
 ``` output
-class       : SpatRaster 
+class       : SpatRaster
 size        : 1367, 1697, 1  (nrow, ncol, nlyr)
 resolution  : 1, 1  (x, y)
 extent      : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
-coord. ref. : WGS 84 / UTM zone 18N (EPSG:32618) 
-source      : HARV_DSMhill.tif 
-name        : HARV_DSMhill 
-min value   :   -0.7136298 
-max value   :    0.9999997 
+coord. ref. : WGS 84 / UTM zone 18N (EPSG:32618)
+source      : HARV_DSMhill.tif
+name        : HARV_DSMhill
+min value   :     -0.71363
+max value   :            1
 ```
 
 Next we convert it to a dataframe, so that we can plot it using `ggplot2`:
@@ -324,7 +324,7 @@ ggplot() +
   coord_quickmap()
 ```
 
-<img src="fig/16-old-02-raster-plot-rendered-raster-hillshade-1.png" style="display: block; margin: auto;" />
+<img src="fig/16-old-02-raster-plot-rendered-raster-hillshade-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
@@ -360,7 +360,7 @@ ggplot() +
   coord_quickmap()
 ```
 
-<img src="fig/16-old-02-raster-plot-rendered-overlay-hillshade-1.png" style="display: block; margin: auto;" />
+<img src="fig/16-old-02-raster-plot-rendered-overlay-hillshade-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -422,7 +422,7 @@ ggplot() +
     coord_quickmap()
 ```
 
-<img src="fig/16-old-02-raster-plot-rendered-challenge-hillshade-layering-1.png" style="display: block; margin: auto;" />
+<img src="fig/16-old-02-raster-plot-rendered-challenge-hillshade-layering-1.png" alt="" style="display: block; margin: auto;" />
 
 ``` r
 # CREATE DTM MAP
@@ -458,7 +458,7 @@ ggplot() +
     coord_quickmap()
 ```
 
-<img src="fig/16-old-02-raster-plot-rendered-challenge-hillshade-layering-2.png" style="display: block; margin: auto;" />
+<img src="fig/16-old-02-raster-plot-rendered-challenge-hillshade-layering-2.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::
 

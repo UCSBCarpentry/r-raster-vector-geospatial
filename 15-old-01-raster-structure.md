@@ -86,7 +86,7 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                         
- [2] "Files: data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif"                                                                                                                                                                                                         
+ [2] "Files: /home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif"                                                                                                                      
  [3] "Size is 1697, 1367"                                                                                                                                                                                                                                                            
  [4] "Coordinate System is:"                                                                                                                                                                                                                                                         
  [5] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                            
@@ -194,15 +194,15 @@ dsm_harv
 ```
 
 ``` output
-class       : SpatRaster 
+class       : SpatRaster
 size        : 1367, 1697, 1  (nrow, ncol, nlyr)
 resolution  : 1, 1  (x, y)
 extent      : 731453, 733150, 4712471, 4713838  (xmin, xmax, ymin, ymax)
-coord. ref. : WGS 84 / UTM zone 18N (EPSG:32618) 
-source      : HARV_dsmCrop.tif 
-name        : HARV_dsmCrop 
-min value   :       305.07 
-max value   :       416.07 
+coord. ref. : WGS 84 / UTM zone 18N (EPSG:32618)
+source      : HARV_dsmCrop.tif
+name        : HARV_dsmCrop
+min value   :   305.070007
+max value   :   416.069977
 ```
 
 The information above includes a report of min and max values, but no other data
@@ -321,7 +321,7 @@ See `?plot` for more arguments to customize the plot
 plot(dsm_harv)
 ```
 
-<img src="fig/15-old-01-raster-structure-rendered-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+<img src="fig/15-old-01-raster-structure-rendered-unnamed-chunk-7-1.png" alt="" style="display: block; margin: auto;" />
 
 :::::::::::::::::
 
@@ -497,7 +497,7 @@ airplane which only flew over some part of a defined region.
 In the image below, the pixels that are black have `NoDataValue`s. The camera
 did not collect data in these areas.
 
-<img src="fig/15-old-01-raster-structure-rendered-demonstrate-no-data-black-ggplot-1.png" style="display: block; margin: auto;" />
+<img src="fig/15-old-01-raster-structure-rendered-demonstrate-no-data-black-ggplot-1.png" alt="" style="display: block; margin: auto;" />
 
 In the next image, the black edges have been assigned `NoDataValue`. R doesn't
 render pixels that contain a specified `NoDataValue`. R assigns missing data
@@ -506,7 +506,7 @@ with the `NoDataValue` as `NA`.
 The difference here shows up as ragged edges on the plot, rather than black
 spaces where there is no data.
 
-<img src="fig/15-old-01-raster-structure-rendered-demonstrate-no-data-ggplot-1.png" style="display: block; margin: auto;" />
+<img src="fig/15-old-01-raster-structure-rendered-demonstrate-no-data-ggplot-1.png" alt="" style="display: block; margin: auto;" />
 
 If your raster already has `NA` values set correctly but you aren't sure where 
 they are, you can deliberately plot them in a particular colour. This can be 
@@ -517,7 +517,7 @@ locate that missing data and fill it in.
 To highlight `NA` values in ggplot, alter the `scale_fill_*()` layer to contain 
 a colour instruction for `NA` values, like `scale_fill_viridis_c(na.value = 'deeppink')`
 
-<img src="fig/15-old-01-raster-structure-rendered-unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
+<img src="fig/15-old-01-raster-structure-rendered-unnamed-chunk-9-1.png" alt="" style="display: block; margin: auto;" />
 
 The value that is conventionally used to take note of missing data (the
 `NoDataValue` value) varies by the raster data type. For floating-point rasters,
@@ -654,7 +654,7 @@ Plotting data with appropriate highlighting can help reveal patterns in bad
 values and may suggest a solution. Below, reclassification is used to highlight
 elevation values over 400m with a contrasting colour.
 
-<img src="fig/15-old-01-raster-structure-rendered-demo-bad-data-highlighting-1.png" style="display: block; margin: auto;" />
+<img src="fig/15-old-01-raster-structure-rendered-demo-bad-data-highlighting-1.png" alt="" style="display: block; margin: auto;" />
 
 ## Create A Histogram of Raster Values
 
@@ -672,7 +672,7 @@ ggplot() +
 `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
-<img src="fig/15-old-01-raster-structure-rendered-view-raster-histogram-1.png" style="display: block; margin: auto;" />
+<img src="fig/15-old-01-raster-structure-rendered-view-raster-histogram-1.png" alt="" style="display: block; margin: auto;" />
 
 Notice that a warning message is thrown when R creates the histogram.
 
@@ -688,7 +688,7 @@ ggplot() +
     geom_histogram(data = dsm_harv_df, aes(HARV_dsmCrop), bins = 40)
 ```
 
-<img src="fig/15-old-01-raster-structure-rendered-view-raster-histogram2-1.png" style="display: block; margin: auto;" />
+<img src="fig/15-old-01-raster-structure-rendered-view-raster-histogram2-1.png" alt="" style="display: block; margin: auto;" />
 
 Note that the shape of this histogram looks similar to the previous one that
 was created using the default of 30 bins. The distribution of elevation values
@@ -720,7 +720,7 @@ describe("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 
 ``` output
  [1] "Driver: GTiff/GeoTIFF"                                                                                                                                                                                                                                                         
- [2] "Files: data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif"                                                                                                                                                                                                         
+ [2] "Files: /home/runner/work/r-raster-vector-geospatial/r-raster-vector-geospatial/site/built/data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif"                                                                                                                      
  [3] "Size is 1697, 1367"                                                                                                                                                                                                                                                            
  [4] "Coordinate System is:"                                                                                                                                                                                                                                                         
  [5] "PROJCRS[\"WGS 84 / UTM zone 18N\","                                                                                                                                                                                                                                            
